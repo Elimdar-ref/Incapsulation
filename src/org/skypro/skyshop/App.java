@@ -1,25 +1,32 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.basket.ProductBasket;
+import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
+import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.product.DiscountedProduct;
+
+import java.util.Arrays;
 
 public class App {
     public static void main(String[] args) {
-        Product apple = new Product("Яблоко", 50);
-        Product banana = new Product("Банан", 70);
-        Product orange = new Product("Апельсин", 100);
-        Product grape = new Product("Виноград", 200);
-        Product watermelon = new Product("Арбуз", 300);
+        SimpleProduct apple = new SimpleProduct("Яблоко", 50);
+        SimpleProduct banana = new SimpleProduct("Банан", 70);
+        SimpleProduct orange = new SimpleProduct("Апельсин", 100);
+        SimpleProduct grape = new SimpleProduct("Виноград", 200);
+        SimpleProduct watermelon = new SimpleProduct("Арбуз", 300);
+        DiscountedProduct fish = new DiscountedProduct("Рыба", 80, 10);
+        DiscountedProduct meat = new DiscountedProduct("Мясо", 100, 27);
+        FixPriceProduct egg = new FixPriceProduct("Яйцо");
+        FixPriceProduct tea = new FixPriceProduct("Чай");
 
         ProductBasket basket = new ProductBasket();
 
-        basket.addProduct(apple);
+        System.out.println("Корзина");
         basket.addProduct(banana);
         basket.addProduct(orange);
-        basket.addProduct(grape);
-        basket.addProduct(watermelon);
-        basket.addProduct(watermelon);
-
+        basket.addProduct(fish);
+        basket.addProduct(tea);
         basket.printBasket();
 
         System.out.println(basket.checkProductByName(banana.getProductName()));
