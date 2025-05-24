@@ -45,13 +45,12 @@ public class App {
         Article article1 = new Article("Хлеб", "Состав хлеба");
         Article article2 = new Article("Сыр", "История создание продукта");
         Article article3 = new Article("Яицо", "Полезный свойства");
-//        searchEngine.add(article1);
-//        searchEngine.add(article2);
+
         System.out.println(article2.getArticleTitle());
         System.out.println(article2.getTextTitle());
 
-        System.out.println(Arrays.toString(searchEngine.search("Мясо")));
-        System.out.println(Arrays.toString(searchEngine.search("Яицо")));
+        System.out.println(Arrays.toString(searchEngine.search("Банан")));
+        System.out.println(Arrays.toString(searchEngine.search("Арбуз")));
     }
 }
 

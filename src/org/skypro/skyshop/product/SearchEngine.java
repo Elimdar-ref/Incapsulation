@@ -21,13 +21,13 @@ public class SearchEngine {
         int resultCount = 0;
         for (Searchable item : searchableArray) {
             if (item != null && resultCount < 5) {
-                item.getSearchTerm().contains(term);
+                if (item.getSearchTerm().contains(term)) {
                     results[resultCount++] = item;
+                }
                 } else {
                     break;
                 }
             }
-
         return results;
     }
 
@@ -39,4 +39,3 @@ public class SearchEngine {
                 '}';
     }
 }
-
