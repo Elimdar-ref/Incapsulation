@@ -1,10 +1,8 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.basket.ProductBasket;
-import org.skypro.skyshop.product.FixPriceProduct;
-import org.skypro.skyshop.product.Product;
-import org.skypro.skyshop.product.SimpleProduct;
-import org.skypro.skyshop.product.DiscountedProduct;
+import org.skypro.skyshop.article.Article;
+import org.skypro.skyshop.product.*;
 
 import java.util.Arrays;
 
@@ -36,6 +34,24 @@ public class App {
         basket.printBasket();
 
         System.out.println(basket.checkProductByName(banana.getProductName()));
+
+        System.out.println();
+        SearchEngine searchEngine = new SearchEngine(5);
+
+        searchEngine.add(banana);
+        searchEngine.add(orange);
+        searchEngine.add(watermelon);
+
+        Article article1 = new Article("Хлеб", "Состав хлеба");
+        Article article2 = new Article("Сыр", "История создание продукта");
+        Article article3 = new Article("Яицо", "Полезный свойства");
+//        searchEngine.add(article1);
+//        searchEngine.add(article2);
+        System.out.println(article2.getArticleTitle());
+        System.out.println(article2.getTextTitle());
+
+        System.out.println(Arrays.toString(searchEngine.search("Мясо")));
+        System.out.println(Arrays.toString(searchEngine.search("Яицо")));
     }
 }
 

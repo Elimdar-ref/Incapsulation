@@ -19,10 +19,15 @@ public class DiscountedProduct extends Product {
     @Override
     public String toString() {
         return getProductName() + " со скидкой " + getPrice() + " : " + basePrice + " (скидка " + discount + "%)";
-        }
+    }
 
     @Override
     public boolean isSpecial() {
         return true;
     }
+
+//    @Override
+//    public String getSearchTerm() {
+//        return super.getSearchTerm();
+//    }
 }
