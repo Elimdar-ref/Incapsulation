@@ -60,5 +60,4 @@ public class ProductBasket {
         public void clearBasket() {
             Arrays.fill(basket, null);
         }
-
 }

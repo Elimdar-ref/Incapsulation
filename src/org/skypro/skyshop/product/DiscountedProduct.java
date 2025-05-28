@@ -7,6 +7,12 @@ public class DiscountedProduct extends Product {
 
     public DiscountedProduct(String productName, int basePrice, double discount) {
         super(productName);
+        if(basePrice <= 0) {
+            throw new IllegalArgumentException("Базовая цены равна 0");
+        }
+            if (discount < 0 || discount > 100) {
+                throw new IllegalArgumentException("Процент скидки минус или больше 100");
+            }
         this.basePrice = basePrice;
         this.discount = discount;
     }
@@ -25,9 +31,4 @@ public class DiscountedProduct extends Product {
     public boolean isSpecial() {
         return true;
     }
-
-//    @Override
-//    public String getSearchTerm() {
-//        return super.getSearchTerm();
-//    }
 }

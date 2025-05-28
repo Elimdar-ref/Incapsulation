@@ -6,8 +6,10 @@ public abstract class Product implements Searchable {
     private final String productName;
 
     public Product(String productName) {
+     if(productName == null || productName.isBlank()) {
+        throw new IllegalArgumentException("Неправильное имя для продукта ");
+    }
         this.productName = productName;
-
     }
 
     public String getProductName() {
@@ -39,5 +41,5 @@ public abstract class Product implements Searchable {
     public String getName() {
         return productName;
     }
+    }
 
-}

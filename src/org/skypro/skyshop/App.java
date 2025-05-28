@@ -11,10 +11,10 @@ public class App {
         SimpleProduct apple = new SimpleProduct("Яблоко", 50);
         SimpleProduct banana = new SimpleProduct("Банан", 70);
         SimpleProduct orange = new SimpleProduct("Апельсин", 100);
-        SimpleProduct grape = new SimpleProduct("Виноград", 200);
+        SimpleProduct grape = new SimpleProduct("Виноград", 30);
         SimpleProduct watermelon = new SimpleProduct("Арбуз", 300);
         DiscountedProduct fish = new DiscountedProduct("Рыба", 80, 10);
-        DiscountedProduct meat = new DiscountedProduct("Мясо", 100, 27);
+        DiscountedProduct meat = new DiscountedProduct("Мясо", 100, 20);
         FixPriceProduct egg = new FixPriceProduct("Яйцо");
         FixPriceProduct tea = new FixPriceProduct("Чай");
 
@@ -41,8 +41,10 @@ public class App {
         searchEngine.add(banana);
         searchEngine.add(orange);
         searchEngine.add(watermelon);
+        searchEngine.add(meat);
+        searchEngine.add(fish);
 
-        Article article1 = new Article("Хлеб", "Состав хлеба");
+        Article article1 = new Article("Хлеб", "Состав хлеб");
         Article article2 = new Article("Сыр", "История создание продукта");
         Article article3 = new Article("Яицо", "Полезный свойства");
 
@@ -51,7 +53,38 @@ public class App {
 
         System.out.println(Arrays.toString(searchEngine.search("Банан")));
         System.out.println(Arrays.toString(searchEngine.search("Арбуз")));
+
+///Исключения
+
+        try {
+            basket.addProduct(new SimpleProduct("    ", 75));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            basket.addProduct(new SimpleProduct("Помидор", 0));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            basket.addProduct(new DiscountedProduct("Помидор", 1, 101));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        searchEngine.add(watermelon);
+
+        try {
+            System.out.println(Arrays.toString(searchEngine.searchElement("Арбуз")));
+        } catch (BestResultNotFound e) {
+            System.out.println(e.getMessage());
+//        } catch (RuntimeException e) {
+//            System.out.println(e.getMessage());
+        }
     }
 }
+
+
 
 
