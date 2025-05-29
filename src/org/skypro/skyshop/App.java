@@ -74,13 +74,15 @@ public class App {
             System.out.println(e.getMessage());
         }
         searchEngine.add(watermelon);
+        searchEngine.add(meat);
+        searchEngine.add(fish);
 
+        System.out.println("Поиск :");
         try {
-            System.out.println(Arrays.toString(searchEngine.searchElement("Арбуз")));
+            System.out.println(searchEngine.searchElement("Арбуз"));
+            System.out.println(searchEngine.searchElement("Помидор"));
         } catch (BestResultNotFound e) {
-            System.out.println(e.getMessage());
-//        } catch (RuntimeException e) {
-//            System.out.println(e.getMessage());
+            throw new BestResultNotFound(e.getMessage());
         }
     }
 }

@@ -33,8 +33,8 @@ public class SearchEngine {
         return results;
     }
 
-    public Searchable[] searchElement(String term) {
-        Searchable[] bestResult = null;
+    public Searchable searchElement(String term) {
+        Searchable bestResult = null;
         int found = 0;
         int score;
         for (Searchable item : searchableArray) {
@@ -43,12 +43,11 @@ public class SearchEngine {
             score = resultMax(str, subStr);
             if (score > found) {
                 found = score;
-                bestResult = searchableArray;
+                bestResult = item;
             }
-            if (bestResult == null) {
-                throw new BestResultNotFound("Для поискового запроса: <" + term + ">, " +
-                        "не нашлось подходящего результата");
-            }
+        }
+        if (bestResult == null) {
+            throw new BestResultNotFound( "Для поискового запроса: <" + term + ">, не нашлось подходящего результата");
         }
         return bestResult;
     }
