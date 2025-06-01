@@ -2,19 +2,32 @@ package org.skypro.skyshop.basket;
 
 import org.skypro.skyshop.product.Product;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class ProductBasket {
-    private final Product[] basket = new Product[5];
+    private final List<Product> basket = new LinkedList<>();
+    private int counter = 0;
 
     public void addProduct(Product product) {
-        for (int i = 0; i < basket.length; i++) {
-            if (basket[i] == null) {
-                basket[i] = product;
-                return;
+        basket.add(product);
+        counter++;
+    }
+
+    public List<Product> removeThisProduct(String productName) {
+        List<Product> removedProducts = new LinkedList<>();
+        Iterator<Product> iterator = basket.iterator();
+        while (iterator.hasNext()) {
+            Product product = iterator.next();
+            if (product.getName().equals(productName)) {
+                removedProducts.add(product);
+                iterator.remove();
             }
         }
-        System.out.println("Невозможно добавить продукт");
+
+        if (removedProducts.isEmpty()) {
+            System.out.println("Список пуст");
+        }
+        return removedProducts;
     }
 
     public int totalPrice() {
@@ -29,9 +42,13 @@ public class ProductBasket {
 
     public void printBasket() {
         boolean isEmpty = true;
+        int count = 0;
         for (Product product : basket) {
             if (product != null) {
-                System.out.println(product.getProductName() + ": " + product.getPrice());
+                System.out.println(product);
+                if (product.isSpecial()) {
+                    count++;
+                }
                 isEmpty = false;
             }
         }
@@ -39,6 +56,7 @@ public class ProductBasket {
             System.out.println("В корзине пусто ");
         } else {
             System.out.println("Итого: " + totalPrice());
+            System.out.println("Специальных товаров: " + count);
         }
     }
 
@@ -50,7 +68,16 @@ public class ProductBasket {
         }
         return false;
     }
-        public void clearBasket() {
-            Arrays.fill(basket, null);
-        }
+
+    public void clearBasket() {
+        basket.clear();
     }
+
+    @Override
+    public String toString() {
+        return "ProductBasket{" +
+                "basket=" + basket +
+                ", counter=" + counter +
+                '}';
+    }
+}
