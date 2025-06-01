@@ -6,11 +6,6 @@ public class SimpleProduct extends Product {
 
     private int price;
 
-//    public void dfhv() {
-//        throw new IllegalArgumentException();
-////        }
-//    }
-
     public SimpleProduct(String productName, int price) {
         super(productName);
         if(price <= 0) {

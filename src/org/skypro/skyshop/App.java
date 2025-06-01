@@ -4,7 +4,7 @@ import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.product.*;
 
-import java.util.Arrays;
+import java.util.List;
 
 public class App {
     public static void main(String[] args) {
@@ -21,6 +21,7 @@ public class App {
         ProductBasket basket = new ProductBasket();
 
         System.out.println("Корзина");
+
         basket.addProduct(banana);
         basket.addProduct(orange);
         basket.addProduct(fish);
@@ -36,13 +37,14 @@ public class App {
         System.out.println(basket.checkProductByName(banana.getProductName()));
 
         System.out.println();
-        SearchEngine searchEngine = new SearchEngine(5);
+        SearchEngine searchEngine = new SearchEngine();
 
         searchEngine.add(banana);
         searchEngine.add(orange);
         searchEngine.add(watermelon);
         searchEngine.add(meat);
         searchEngine.add(fish);
+        basket.printBasket();
 
         Article article1 = new Article("Хлеб", "Состав хлеб");
         Article article2 = new Article("Сыр", "История создание продукта");
@@ -51,8 +53,8 @@ public class App {
         System.out.println(article2.getArticleTitle());
         System.out.println(article2.getTextTitle());
 
-        System.out.println(Arrays.toString(searchEngine.search("Банан")));
-        System.out.println(Arrays.toString(searchEngine.search("Арбуз")));
+        System.out.println(searchEngine.search("Банан"));
+        System.out.println(searchEngine.search("Арбуз"));
 
 ///Исключения
 
@@ -80,13 +82,48 @@ public class App {
         System.out.println("Поиск :");
         try {
             System.out.println(searchEngine.searchElement("Арбуз"));
-            System.out.println(searchEngine.searchElement("Помидор"));
-        } catch (BestResultNotFound e) {
-            throw new BestResultNotFound(e.getMessage());
+            System.out.println(searchEngine.searchElement("Банан"));
+        } catch (BestResultNotFoundException e) {
+            throw new BestResultNotFoundException(e.getMessage());
+        } finally {
+            System.out.println("Поиск завершен");
         }
+//////
+        System.out.println("List");
+        System.out.println("Корзина");
+        basket.addProduct(banana);
+        basket.addProduct(orange);
+        basket.addProduct(watermelon);
+        basket.printBasket();
+
+        List<Product> removed = basket.removeThisProduct(banana.getProductName());
+        System.out.println(removed);
+
+        System.out.println("Корзина");
+        basket.printBasket();
+
+        List<Product> removed1 = basket.removeThisProduct(grape.getProductName());
+
+        List<Product> removed2 = basket.removeThisProduct(banana.getProductName());
+
+        System.out.println("Корзина");
+        basket.printBasket();
+
+        System.out.println("Поиск :");
+        try {
+            System.out.println(searchEngine.searchElement("Арбуз"));
+            System.out.println(searchEngine.searchElement("Банан"));
+        } catch (BestResultNotFoundException e) {
+            throw new BestResultNotFoundException(e.getMessage());
+        } finally {
+            System.out.println("Поиск завершен");
+        }
+        searchEngine.add(banana);
+        searchEngine.add(banana);
+        searchEngine.add(orange);
+        searchEngine.add(watermelon);
+
+        System.out.println(searchEngine.search("Банан"));
+        System.out.println(searchEngine.search("Апельсин"));
     }
 }
-
-
-
-
