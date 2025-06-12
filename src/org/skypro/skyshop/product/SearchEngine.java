@@ -3,6 +3,7 @@ package org.skypro.skyshop.product;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TreeMap;
 
 import org.skypro.skyshop.product.BestResultNotFoundException;
 
@@ -17,16 +18,15 @@ public class SearchEngine {
         searchableArray.add(item);
     }
 
-    public List<Searchable> search(String term) {
-        List<Searchable> results = new LinkedList<>();
-
-        for (Searchable item : searchableArray) {
-            if (item != null && item.getSearchTerm().contains(term)) {
-                    results.add(item);
-                }
+    public TreeMap<String, Searchable> search(String term) {
+         TreeMap<String, Searchable> results = new TreeMap<>();
+         for (Searchable item : searchableArray) {
+        if (item != null && item.getSearchTerm().contains(term)) {
+            results.put(item.getName(), item);
         }
-        return results;
     }
+    return results;
+}
 
     public Searchable searchElement(String term) {
         Searchable bestResult = null;

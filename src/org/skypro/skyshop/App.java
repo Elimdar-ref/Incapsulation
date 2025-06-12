@@ -4,7 +4,10 @@ import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.product.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class App {
     public static void main(String[] args) {
@@ -88,7 +91,7 @@ public class App {
         } finally {
             System.out.println("Поиск завершен");
         }
-//////
+////////
         System.out.println("List");
         System.out.println("Корзина");
         basket.addProduct(banana);
@@ -96,15 +99,12 @@ public class App {
         basket.addProduct(watermelon);
         basket.printBasket();
 
-        List<Product> removed = basket.removeThisProduct(banana.getProductName());
+        List<Product> removed = basket.removeThisProduct(orange.getProductName());
         System.out.println(removed);
-
-        System.out.println("Корзина");
-        basket.printBasket();
 
         List<Product> removed1 = basket.removeThisProduct(grape.getProductName());
 
-        List<Product> removed2 = basket.removeThisProduct(banana.getProductName());
+        List<Product> removed2 = basket.removeThisProduct(fish.getProductName());
 
         System.out.println("Корзина");
         basket.printBasket();
@@ -118,12 +118,12 @@ public class App {
         } finally {
             System.out.println("Поиск завершен");
         }
-        searchEngine.add(banana);
-        searchEngine.add(banana);
-        searchEngine.add(orange);
-        searchEngine.add(watermelon);
 
-        System.out.println(searchEngine.search("Банан"));
-        System.out.println(searchEngine.search("Апельсин"));
+        ///Map
+        System.out.println();
+        TreeMap<String, Searchable> results = searchEngine.search("");
+        for (Map.Entry<String, Searchable> entry : results.entrySet()) {
+            System.out.println(entry.getKey() + " - " + entry.getValue());
+        }
     }
 }

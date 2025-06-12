@@ -5,65 +5,72 @@ import org.skypro.skyshop.product.Product;
 import java.util.*;
 
 public class ProductBasket {
-    private final List<Product> basket = new LinkedList<>();
+    private final Map<String, List<Product>> basket = new TreeMap<>();
     private int counter = 0;
 
     public void addProduct(Product product) {
-        basket.add(product);
+        List<Product> productList = basket.getOrDefault(product.getName(), new LinkedList<>());
+        productList.add(product);
+        basket.put(product.getName(), productList);
         counter++;
     }
 
     public List<Product> removeThisProduct(String productName) {
         List<Product> removedProducts = new LinkedList<>();
-        Iterator<Product> iterator = basket.iterator();
-        while (iterator.hasNext()) {
-            Product product = iterator.next();
-            if (product.getName().equals(productName)) {
-                removedProducts.add(product);
-                iterator.remove();
+        for (List<Product> productList : basket.values()) {
+            Iterator<Product> iterator = productList.iterator();
+            while (iterator.hasNext()) {
+                Product product = iterator.next();
+                if (product.getName().equals(productName)) {
+                    removedProducts.add(product);
+                    iterator.remove();
+                }
             }
-        }
-
-        if (removedProducts.isEmpty()) {
-            System.out.println("Список пуст");
         }
         return removedProducts;
     }
 
     public int totalPrice() {
         int fullprice = 0;
-        for (Product product : basket) {
-            if (product != null) {
-                fullprice += product.getPrice();
+        for (List<Product> productList : basket.values()) {
+            for (Product product : productList) {
+                if (product != null) {
+                    fullprice += product.getPrice();
+                }
             }
         }
-        return fullprice;
-    }
+            return fullprice;
+        }
+
 
     public void printBasket() {
         boolean isEmpty = true;
         int count = 0;
-        for (Product product : basket) {
-            if (product != null) {
-                System.out.println(product);
-                if (product.isSpecial()) {
-                    count++;
+        for (List<Product> productList : basket.values()) {
+            for (Product product : productList) {
+                if (product != null) {
+                    System.out.println(product);
+                    if (product.isSpecial()) {
+                        count++;
+                    }
+                    isEmpty = false;
                 }
-                isEmpty = false;
             }
         }
-        if (isEmpty) {
-            System.out.println("В корзине пусто ");
-        } else {
-            System.out.println("Итого: " + totalPrice());
-            System.out.println("Специальных товаров: " + count);
+            if (isEmpty) {
+                System.out.println("В корзине пусто ");
+            } else {
+                System.out.println("Итого: " + totalPrice());
+                System.out.println("Специальных товаров: " + count);
         }
     }
 
     public boolean checkProductByName(String name) {
-        for (Product product : basket) {
-            if (product != null && product.getProductName().equals(name)) {
-                return true;
+        for (List<Product> productList : basket.values()) {
+            for (Product product : productList) {
+                if (product.getProductName().equals(name)) {
+                    return true;
+                }
             }
         }
         return false;
@@ -80,4 +87,17 @@ public class ProductBasket {
                 ", counter=" + counter +
                 '}';
     }
+//
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        ProductBasket that = (ProductBasket) o;
+//        return counter == that.counter && Objects.equals(basket, that.basket);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(basket, counter);
+//    }
 }
