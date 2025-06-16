@@ -4,10 +4,7 @@ import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.product.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class App {
     public static void main(String[] args) {
@@ -119,11 +116,18 @@ public class App {
             System.out.println("Поиск завершен");
         }
 
-        ///Map
+        ///Set
+        searchEngine.add(grape);
+        searchEngine.add(banana);
+        searchEngine.add(orange);
+        searchEngine.add(watermelon);
+        searchEngine.add(meat);
+        searchEngine.add(fish);
+
         System.out.println();
-        TreeMap<String, Searchable> results = searchEngine.search("");
-        for (Map.Entry<String, Searchable> entry : results.entrySet()) {
-            System.out.println(entry.getKey() + " - " + entry.getValue());
+        Set<Searchable> results = searchEngine.search("");
+        for (Searchable entry : results) {
+            System.out.println("Имя продукта" + " - " + entry.getName());
         }
     }
 }

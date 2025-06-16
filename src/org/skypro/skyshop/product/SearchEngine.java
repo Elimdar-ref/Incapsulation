@@ -1,28 +1,23 @@
 package org.skypro.skyshop.product;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.TreeMap;
-
-import org.skypro.skyshop.product.BestResultNotFoundException;
+import java.util.*;
 
 public class SearchEngine {
-    private final List<Searchable> searchableArray;
+    private final Set<Searchable> searchableArray;
 
     public SearchEngine() {
-        searchableArray = new LinkedList<>();
+        searchableArray = new HashSet<>();
     }
 
     public void add(Searchable item) {
         searchableArray.add(item);
     }
 
-    public TreeMap<String, Searchable> search(String term) {
-         TreeMap<String, Searchable> results = new TreeMap<>();
+    public Set<Searchable> search(String term) {
+         Set<Searchable> results = new TreeSet<>(new ReverseComparator());
          for (Searchable item : searchableArray) {
         if (item != null && item.getSearchTerm().contains(term)) {
-            results.put(item.getName(), item);
+            results.add(item);
         }
     }
     return results;
@@ -62,6 +57,16 @@ public class SearchEngine {
         return score;
     }
 
+    public static class ReverseComparator implements Comparator<Searchable> {
+        @Override
+        public int compare(Searchable s1, Searchable s2) {
+            int lengthCompare = Integer.compare(s2.getName().length(), s1.getName().length());
+            if (lengthCompare == 0) {
+                return s1.getName().compareToIgnoreCase(s2.getName());
+            }
+            return lengthCompare;
+        }
+    }
     @Override
     public String toString() {
         return "SearchEngine{" +

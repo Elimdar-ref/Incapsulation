@@ -6,14 +6,12 @@ import java.util.*;
 
 public class ProductBasket {
     private final Map<String, List<Product>> basket = new TreeMap<>();
-    private int counter = 0;
 
     public void addProduct(Product product) {
         List<Product> productList = basket.getOrDefault(product.getName(), new LinkedList<>());
         productList.add(product);
         basket.put(product.getName(), productList);
-        counter++;
-    }
+        }
 
     public List<Product> removeThisProduct(String productName) {
         List<Product> removedProducts = new LinkedList<>();
@@ -84,9 +82,9 @@ public class ProductBasket {
     public String toString() {
         return "ProductBasket{" +
                 "basket=" + basket +
-                ", counter=" + counter +
                 '}';
     }
+
 //
 //    @Override
 //    public boolean equals(Object o) {
