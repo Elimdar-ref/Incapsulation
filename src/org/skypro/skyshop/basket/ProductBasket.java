@@ -30,37 +30,30 @@ public class ProductBasket {
 
     public int totalPrice() {
         int fullprice = 0;
-        for (List<Product> productList : basket.values()) {
-            for (Product product : productList) {
-                if (product != null) {
-                    fullprice += product.getPrice();
-                }
-            }
-        }
+        fullprice = basket.values().stream().flatMap(Collection::stream)
+                .mapToInt(x -> x.getPrice())
+                .sum();
             return fullprice;
         }
 
 
     public void printBasket() {
-        boolean isEmpty = true;
-        int count = 0;
-        for (List<Product> productList : basket.values()) {
-            for (Product product : productList) {
-                if (product != null) {
-                    System.out.println(product);
-                    if (product.isSpecial()) {
-                        count++;
-                    }
-                    isEmpty = false;
-                }
-            }
-        }
-            if (isEmpty) {
+        basket.values().stream().flatMap(Collection::stream).forEach(System.out::println);
+            if (basket.isEmpty()) {
                 System.out.println("В корзине пусто ");
             } else {
                 System.out.println("Итого: " + totalPrice());
-                System.out.println("Специальных товаров: " + count);
+                System.out.println("Специальных товаров: " + getSpecialCount());
         }
+    }
+
+    private long getSpecialCount() {
+        long countSpesial = 0;
+        countSpesial = basket.values().stream()
+                .flatMap(Collection::stream)
+                .filter(Product::isSpecial)
+                .count();
+        return countSpesial;
     }
 
     public boolean checkProductByName(String name) {
